@@ -219,9 +219,9 @@ int WiFiClient::connect(IPAddress ip, uint16_t port, int32_t timeout)
 
     uint32_t ip_addr = ip;
     struct sockaddr_in serveraddr;
-    bzero((char *) &serveraddr, sizeof(serveraddr));
+    memset(&serveraddr, 0,  sizeof(serveraddr));
     serveraddr.sin_family = AF_INET;
-    bcopy((const void *)(&ip_addr), (void *)&serveraddr.sin_addr.s_addr, 4);
+    serveraddr.sin_addr.s_addr = ip_addr;
     serveraddr.sin_port = htons(port);
     fd_set fdset;
     struct timeval tv;
